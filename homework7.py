@@ -136,23 +136,22 @@ class Cell:
         return f'Количество ячеек в клетке: {self.cells} ({"*" * self.cells})'
 
     def __add__(self, other):
-        add_result = self.cells + other.cells
-        return f'Количество ячеек в общей клетке после объединения двух путём сложения: {add_result}'
+        return Cell(self.cells + other.cells)
 
     def __sub__(self, other):
-        sub_result = self.cells - other.cells
-        if sub_result > 0:
-            return f'Количество ячеек в общей клетке после объединения двух путём вычитания: {sub_result}'
+        if self.cells - other.cells > 0:
+            return Cell(self.cells - other.cells)
         else:
-            return 'Разность меньше 0'
+            return 'Разность меньше 0.'
 
     def __mul__(self, other):
-        mul_result = self.cells * other.cells
-        return f'Количество ячеек в общей клетке после объединения двух путём умножения: {mul_result}'
+        return Cell(self.cells * other.cells)
 
     def __truediv__(self, other):
-        truediv_result = self.cells // other.cells
-        return f'Количество ячеек в общей клетке после объединения двух путём деления: {truediv_result}'
+        try:
+            return Cell(self.cells // other.cells)
+        except ZeroDivisionError:
+            return 'Делить на 0 нельзя. У одной из клеток 0 ячеек.'
 
     def make_order(self, cells_in_row):
         row = str()
